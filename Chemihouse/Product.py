@@ -15,15 +15,16 @@ def createProduct():
         name = input('Podaj nazwę towaru: ').upper()
         code = input ('Podaj kod kreskowy towaru: ').upper()
         quantity = input('Podaj ilość przyjmowanego towaru: ')
+        minimumQuant = input('Podaj ilość MINIMALNĄ stanu: ')
         Tools.consoleClear()
 
         print('Czy podane informacje się zgadzają? \n\n\tProducent: ', manufacturer,
              '\n\tNazwa: ', name, '\n\tReferencja: ', reference, '\n\tKod kreskowy: ',
-             code, '\n\tIlość : ', quantity)
+             code, '\n\tIlość : ', quantity, '\n\tIlość minimalna : ', minimumQuant)
         check = input('\n[T - tak / E - wyjście]: ')
 
         if check.upper() == 'T' or check.upper() == 'TAK':
-            Database.insertTo(reference, manufacturer, name, code, quantity)
+            Database.insertTo(reference, manufacturer, name, code, quantity, minimumQuant)
             Tools.consoleClear()
             break
         elif check.upper() == 'E':
@@ -59,9 +60,14 @@ def editProduct():
         input()
         return
     Tools.consoleClear()
-    manufacturer = input('Podaj nową nazwę producenta: ')
-    name = input('Podaj nową nazwę towaru: ')
-    reference = input('Podaj nową referencję: ')
-    code = input('Podaj nowy kod kreskowy towaru: ')
+    manufacturer = input('Podaj nową nazwę producenta: ').upper()
+    name = input('Podaj nową nazwę towaru: ').upper()
+    reference = input('Podaj nową referencję: ').upper()
+    code = input('Podaj nowy kod kreskowy towaru: ').upper()
+    minQuant = input('Podaj ilość MINIMALNĄ stanu: ')
 
-    Database.editRecord(reference, manufacturer, name, code, oldRef)
+    Database.editRecord(reference, manufacturer, name, code, minQuant, oldRef)
+
+def showItemsToOrder():
+    print('REFERENCJA | NAZWA | STAN | STAN MINIMALNY\n')
+    Database.showDbOrder()

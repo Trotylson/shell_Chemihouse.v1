@@ -11,6 +11,7 @@ table = '''CREATE TABLE IF NOT EXISTS Products (
         Nazwa TEXT, 
         Kod_kreskowy TEXT, 
         Stan INTEGER, 
+        Stan_minimum INTEGER,
         Ostatni_ruch TIMESTAMP)'''
 
 def checkRefComplianceWithDb(ref):
@@ -32,9 +33,9 @@ def createOrDrop(order):
         Tools.dbSeed()
         conn.commit()
 
-def insertTo(ref, prod, name, code, quant):
-    insertQuery = """INSERT INTO Products VALUES(?,?,?,?,?,?)"""
-    db.execute(insertQuery, (ref, prod, name, code, quant, date.today()))
+def insertTo(ref, prod, name, code, quant, min):
+    insertQuery = """INSERT INTO Products VALUES(?,?,?,?,?,?,?)"""
+    db.execute(insertQuery, (ref, prod, name, code, quant, min, date.today()))
     conn.commit()
 
 def crorrectStock(quant, ref):
@@ -42,21 +43,27 @@ def crorrectStock(quant, ref):
     db.execute(insertQuerry, (quant, date.today(), ref.upper()))
     conn.commit()
     
-def editRecord(ref, prod, name, code, oldRef):
+def editRecord(ref, prod, name, code, min, oldRef):
     insertQuerry = """UPDATE Products set 
     Referencja = ?,
     Producent = ?,
     Nazwa = ?,
     Kod_kreskowy = ?,
+    Stan_minimum = ?,
     Ostatni_ruch = ?
     where Referencja = ?"""
-    db.execute(insertQuerry, (ref.upper(), prod.upper(), name.upper(), code.upper(), date.today(), oldRef.upper()))
+    db.execute(insertQuerry, (ref, prod, name, code, min, date.today(), oldRef))
     conn.commit()
+
+def showDbOrder():
+    for row in db.execute("""SELECT Referencja, Nazwa, Stan, 
+    Stan_minimum FROM Products WHERE Stan <= Stan_Minimum"""):
+        print(row)
 
 def closeDb():
     conn.close()
 
 def showDatabase():
-    print('REFERENCJA | PRODUCENT | NAZWA | KOD KRESKOWY | STAN | DATA OSTATNIEJ MODERNIZACJI\n')
+    print('REFERENCJA | PRODUCENT | NAZWA | KOD KRESKOWY | STAN | STAN MINIMALNY | DATA OSTATNIEJ MODERNIZACJI\n')
     for row in db.execute('SELECT * FROM Products'):
         print (row)

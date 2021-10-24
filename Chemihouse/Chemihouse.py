@@ -24,11 +24,21 @@ def select(key):
         Tools.consoleClear()
         Database.showDatabase()
         input('\nENTER aby zamknąć...')
+    elif key == '5': # show items to order
+        Tools.consoleClear()
+        Product.showItemsToOrder()
+        input('\nENTER aby zamknąć...')
 
 while True:
     Tools.consoleClear()
-    print(str(date.today()) + '\n\nWitaj w CHEMIHOUSE - magazynku chemii warsztatowej ver. 1.0\n')
-    print('\tWybierz pozycję i zatwierdź [ENTER]:\n\n\t\t1 - Dodaj towar\n\t\t2 - Rozchód / przychód\n\t\t3 - Edytuj towar\n\t\t4 - Podgląd magazynu\n\t\tE - Wyjście\n')
+    print(str(date.today()) + '\n\nWitaj w CHEMIHOUSE (ver. 1.0) - magazynku chemii warsztatowej\n')
+    print('\tWybierz pozycję i zatwierdź [ENTER]:\n\n\t\t'
+        '1 - Dodaj towar\n\t\t'
+        '2 - Rozchód / przychód\n\t\t'
+        '3 - Edytuj towar\n\t\t'
+        '4 - Podgląd magazynu\n\t\t'
+        '5 - Do zamówienia\n\t\t'
+        'E - Wyjście\n')
 
     choose = input('\t\tPozycja: ')
     if choose.upper() == 'E':
