@@ -27,7 +27,7 @@ def select(key):
 
 while True:
     Tools.consoleClear()
-    print(str(date.today()) + '\n\nWitaj w CHEMIHOUSE - magazynku chemii warsztatowej\n')
+    print(str(date.today()) + '\n\nWitaj w CHEMIHOUSE - magazynku chemii warsztatowej ver. 1.0\n')
     print('\tWybierz pozycję i zatwierdź [ENTER]:\n\n\t\t1 - Dodaj towar\n\t\t2 - Rozchód / przychód\n\t\t3 - Edytuj towar\n\t\t4 - Podgląd magazynu\n\t\tE - Wyjście\n')
 
     choose = input('\t\tPozycja: ')
