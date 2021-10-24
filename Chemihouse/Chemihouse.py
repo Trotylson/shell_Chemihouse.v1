@@ -35,7 +35,7 @@ while True:
     print('\tWybierz pozycję i zatwierdź [ENTER]:\n\n\t\t'
         '1 - Dodaj towar\n\t\t'
         '2 - Rozchód / przychód\n\t\t'
-        '3 - Edytuj towar\n\t\t'
+        '3 - Edytuj lub usuń towar\n\t\t'
         '4 - Podgląd magazynu\n\t\t'
         '5 - Do zamówienia\n\t\t'
         'E - Wyjście\n')

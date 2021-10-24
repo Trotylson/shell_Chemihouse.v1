@@ -19,6 +19,9 @@ def checkRefComplianceWithDb(ref):
     for row in db.execute("""SELECT Referencja FROM Products"""):
         if str(row) == reference:
             return True
+    for row in db.execute("""SELECT Kod_kreskowy FROM Products"""):
+        if str(row) == reference:
+            return True
     return False
 
 def createOrDrop(order):
@@ -38,9 +41,10 @@ def insertTo(ref, prod, name, code, quant, min):
     db.execute(insertQuery, (ref, prod, name, code, quant, min, date.today()))
     conn.commit()
 
-def crorrectStock(quant, ref):
-    insertQuerry = """UPDATE Products set Stan = Stan + ?, Ostatni_ruch = ? where Referencja = ?"""
-    db.execute(insertQuerry, (quant, date.today(), ref.upper()))
+def crorrectStock(quant, ref): #edit item stock
+    insertQuerry = """UPDATE Products set Stan = Stan + ?, Ostatni_ruch = ? 
+                    WHERE Referencja = ? OR Kod_kreskowy = ?"""
+    db.execute(insertQuerry, (quant, date.today(), ref, ref))
     conn.commit()
     
 def editRecord(ref, prod, name, code, min, oldRef):
@@ -53,6 +57,11 @@ def editRecord(ref, prod, name, code, min, oldRef):
     Ostatni_ruch = ?
     where Referencja = ?"""
     db.execute(insertQuerry, (ref, prod, name, code, min, date.today(), oldRef))
+    conn.commit()
+
+def deleteRecord(ref):
+    deleteRecord = """DELETE FROM Products WHERE Referencja = ? OR Kod_kreskowy = ?"""
+    db.execute(deleteRecord,(ref, ref,))
     conn.commit()
 
 def showDbOrder():

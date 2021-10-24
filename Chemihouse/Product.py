@@ -59,14 +59,23 @@ def editProduct():
         print('Podana referencja nie jest prawidłowa lub nie istnieje! ', oldRef, '\n[ENTER] by wyjść.')
         input()
         return
-    Tools.consoleClear()
-    manufacturer = input('Podaj nową nazwę producenta: ').upper()
-    name = input('Podaj nową nazwę towaru: ').upper()
-    reference = input('Podaj nową referencję: ').upper()
-    code = input('Podaj nowy kod kreskowy towaru: ').upper()
-    minQuant = input('Podaj ilość MINIMALNĄ stanu: ')
-
-    Database.editRecord(reference, manufacturer, name, code, minQuant, oldRef)
+    while True:
+        selectWay = input('\nCo chcesz zrobić: \n\t1 - Edytuj produkt\n\t2 - Usuń produkt'
+                          '\n\nE - Wyjdź\n\nPozycja: ').upper()
+        if selectWay == '1':
+            Tools.consoleClear()
+            manufacturer = input('Podaj nową nazwę producenta: ').upper()
+            name = input('Podaj nową nazwę towaru: ').upper()
+            reference = input('Podaj nową referencję: ').upper()
+            code = input('Podaj nowy kod kreskowy towaru: ').upper()
+            minQuant = input('Podaj ilość MINIMALNĄ stanu: ')
+            Database.editRecord(reference, manufacturer, name, code, minQuant, oldRef)
+            break
+        elif selectWay == '2':
+            Database.deleteRecord(oldRef)
+            break
+        elif selectWay == 'E':
+            break
 
 def showItemsToOrder():
     print('REFERENCJA | NAZWA | STAN | STAN MINIMALNY\n')
